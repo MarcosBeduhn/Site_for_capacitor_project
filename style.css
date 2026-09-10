@@ -1,0 +1,178 @@
+:root {
+    --primary: #ffaa00;
+    --secondary: #e60000;
+    --bg: #f4f4f9;
+    --text: #333;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: var(--bg);
+    color: var(--text);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.container {
+    background: white;
+    width: 90%;
+    max-width: 800px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    padding: 30px;
+}
+
+h1 {
+    text-align: center;
+    color: var(--secondary);
+    margin-bottom: 20px;
+}
+
+.stage {
+    display: none;
+}
+
+.stage.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Menu Grid */
+.menu-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.menu-item {
+    background: #fff;
+    border: 2px solid #eee;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.menu-item:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary);
+}
+
+.menu-item h3 {
+    margin-bottom: 10px;
+}
+
+.menu-item p {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--secondary);
+    margin-bottom: 15px;
+}
+
+/* Botão com barra de progresso (Hover 3s) */
+.hover-btn {
+    position: relative;
+    background: #ddd;
+    color: #333;
+    border: none;
+    padding: 15px;
+    width: 100%;
+    font-size: 1rem;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+}
+
+.hover-btn .text {
+    position: relative;
+    z-index: 2;
+}
+
+.hover-btn .progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--primary);
+    z-index: 1;
+}
+
+/* Animação da barra de progresso acionada via JS */
+.hover-btn.filling .progress {
+    width: 100%;
+    transition: width 3s linear;
+    background: var(--secondary);
+}
+
+.hover-btn.filling .text {
+    color: white;
+    transition: color 0.3s;
+}
+
+/* Botão de Avançar / Confirmar */
+.action-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 20px;
+    border-top: 2px solid #eee;
+    padding-top: 20px;
+}
+
+.action-container .hover-btn {
+    width: 250px;
+}
+
+/* Tela de Confirmação */
+#cart-items {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+#cart-items li {
+    background: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+}
+
+.total-price {
+    font-size: 1.5rem;
+    text-align: right;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.98); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+/* Mensagem de sucesso flutuante */
+.toast {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #28a745;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 5px;
+    display: none;
+    z-index: 1000;
+}

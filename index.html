@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel Fast Food</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <!-- ETAPA 1: Seleção -->
+        <div id="stage-selection" class="stage active">
+            <h1>Cardápio - Selecione (Pressione por 3s)</h1>
+            
+            <div class="menu-grid">
+                <div class="menu-item">
+                    <h3>Hambúrguer Clássico</h3>
+                    <p>R$ 25,00</p>
+                    <button class="hover-btn" data-action="add" data-name="Hambúrguer Clássico" data-price="25.00">
+                        <span class="text">Adicionar ao Carrinho</span>
+                        <span class="progress"></span>
+                    </button>
+                </div>
+                <div class="menu-item">
+                    <h3>Batata Frita Média</h3>
+                    <p>R$ 12,00</p>
+                    <button class="hover-btn" data-action="add" data-name="Batata Frita Média" data-price="12.00">
+                        <span class="text">Adicionar ao Carrinho</span>
+                        <span class="progress"></span>
+                    </button>
+                </div>
+                <div class="menu-item">
+                    <h3>Refrigerante 500ml</h3>
+                    <p>R$ 8,00</p>
+                    <button class="hover-btn" data-action="add" data-name="Refrigerante 500ml" data-price="8.00">
+                        <span class="text">Adicionar ao Carrinho</span>
+                        <span class="progress"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="action-container">
+                <button class="hover-btn" data-action="next">
+                    <span class="text">Avançar para Confirmação</span>
+                    <span class="progress"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- ETAPA 2: Confirmação -->
+        <div id="stage-confirmation" class="stage">
+            <h1>Confirme seu Pedido</h1>
+            
+            <ul id="cart-items">
+                <!-- Itens adicionados aparecerão aqui -->
+            </ul>
+            
+            <div class="total-price">
+                Total: R$ <span id="total-value">0,00</span>
+            </div>
+
+            <div class="action-container" style="justify-content: space-between;">
+                <button class="hover-btn" data-action="back" style="width: 200px; background: #ccc;">
+                    <span class="text">Voltar</span>
+                    <span class="progress" style="background: #999;"></span>
+                </button>
+
+                <button class="hover-btn" data-action="finish" style="width: 250px;">
+                    <span class="text">Finalizar Pedido</span>
+                    <span class="progress"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">Ação concluída!</div>
+
+    <script src="script.js"></script>
+</body>
+</html>
