@@ -3,48 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Painel Fast Food</title>
+    <title>Painel Fast Food - Minecraft Style</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <div class="container">
-        <!-- ETAPA 1: Seleção -->
+        <!-- ETAPA 1: Seleção (Cardápio 3x3) -->
         <div id="stage-selection" class="stage active">
-            <h1>Cardápio - Selecione (Pressione por 3s)</h1>
+            <h1>Cardápio - Pouse o mouse no quadrado (3s)</h1>
             
             <div class="menu-grid">
-                <div class="menu-item">
-                    <h3>Hambúrguer Clássico</h3>
-                    <p>R$ 25,00</p>
-                    <button class="hover-btn" data-action="add" data-name="Hambúrguer Clássico" data-price="25.00">
-                        <span class="text">Adicionar ao Carrinho</span>
-                        <span class="progress"></span>
-                    </button>
+                <!-- 9 Quadrados Perfeitos -->
+                <div class="menu-item hover-btn" data-action="add" data-name="Hambúrguer Clássico" data-price="25.00">
+                    <span class="progress"></span>
+                    <div class="item-content">
+                        <h3>Hambúrguer Clássico</h3>
+                        <p>R$ 25,00</p>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <h3>Batata Frita Média</h3>
-                    <p>R$ 12,00</p>
-                    <button class="hover-btn" data-action="add" data-name="Batata Frita Média" data-price="12.00">
-                        <span class="text">Adicionar ao Carrinho</span>
-                        <span class="progress"></span>
-                    </button>
+
+                <div class="menu-item hover-btn" data-action="add" data-name="Batata Frita Média" data-price="12.00">
+                    <span class="progress"></span>
+                    <div class="item-content">
+                        <h3>Batata Frita Média</h3>
+                        <p>R$ 12,00</p>
+                    </div>
                 </div>
-                <div class="menu-item">
-                    <h3>Refrigerante 500ml</h3>
-                    <p>R$ 8,00</p>
-                    <button class="hover-btn" data-action="add" data-name="Refrigerante 500ml" data-price="8.00">
-                        <span class="text">Adicionar ao Carrinho</span>
-                        <span class="progress"></span>
-                    </button>
+
+                <div class="menu-item hover-btn" data-action="add" data-name="Refrigerante 500ml" data-price="8.00">
+                    <span class="progress"></span>
+                    <div class="item-content">
+                        <h3>Refrigerante 500ml</h3>
+                        <p>R$ 8,00</p>
+                    </div>
+                </div>
+
+                <div class="menu-item hover-btn" data-action="add" data-name="Cheeseburger Duplo" data-price="32.00">
+                    <span class="progress"></span>
+                    <div class="item-content">
+                        <h3>Cheeseburger Duplo</h3>
+                        <p>R$ 32,00</p>
+                    </div>
+                </div>
+
+                <div class="menu-item hover-btn" data-action="add" data-name="Cachorro Quente" data-price="15.00">
+                    <span class="progress"></span>
+                    <div class="item-content">
+                        <h3>Cachorro Quente</h3>
+                        <p>R$ 15,00</p>
+                    </div>
+                </div>
+
+                <div class="menu-item hover-btn" data-action="add" data-name="Pizza Broto" data-price="28.00">
+                    <span class="progress"></span>
+                    <div class="item-content">
+                        <h3>Pizza Broto</h3>
+                        <p>R$ 28,00</p>
+                    </div>
+                </div>
+
+                <div class="menu-item hover-btn" data-action="add" data-name="Suco Natural" data-price="10.00">
+                    <span class="progress"></span>
+                    <div class="item-content">
+                        <h3>Suco Natural</h3>
+                        <p>R$ 10,00</p>
+                    </div>
+                </div>
+
+                <div class="menu-item hover-btn" data-action="add" data-name="Sorvete Casquinha" data-price="7.00">
+                    <span class="progress"></span>
+                    <div class="item-content">
+                        <h3>Sorvete Casquinha</h3>
+                        <p>R$ 7,00</p>
+                    </div>
+                </div>
+
+                <div class="menu-item hover-btn" data-action="add" data-name="Milkshake 400ml" data-price="18.00">
+                    <span class="progress"></span>
+                    <div class="item-content">
+                        <h3>Milkshake 400ml</h3>
+                        <p>R$ 18,00</p>
+                    </div>
                 </div>
             </div>
 
             <div class="action-container">
-                <button class="hover-btn" data-action="next">
-                    <span class="text">Avançar para Confirmação</span>
+                <div class="hover-btn big-action-btn" data-action="next">
                     <span class="progress"></span>
-                </button>
+                    <span class="text">AVANÇAR PARA CONFIRMAÇÃO</span>
+                </div>
             </div>
         </div>
 
@@ -52,24 +100,22 @@
         <div id="stage-confirmation" class="stage">
             <h1>Confirme seu Pedido</h1>
             
-            <ul id="cart-items">
-                <!-- Itens adicionados aparecerão aqui -->
-            </ul>
+            <ul id="cart-items"></ul>
             
             <div class="total-price">
                 Total: R$ <span id="total-value">0,00</span>
             </div>
 
-            <div class="action-container" style="justify-content: space-between;">
-                <button class="hover-btn" data-action="back" style="width: 200px; background: #ccc;">
-                    <span class="text">Voltar</span>
-                    <span class="progress" style="background: #999;"></span>
-                </button>
-
-                <button class="hover-btn" data-action="finish" style="width: 250px;">
-                    <span class="text">Finalizar Pedido</span>
+            <div class="action-container confirmation-actions">
+                <div class="hover-btn big-action-btn back-btn" data-action="back">
                     <span class="progress"></span>
-                </button>
+                    <span class="text">VOLTAR AO CARDÁPIO</span>
+                </div>
+
+                <div class="hover-btn big-action-btn finish-btn" data-action="finish">
+                    <span class="progress"></span>
+                    <span class="text">CONFIRMAR E FINALIZAR</span>
+                </div>
             </div>
         </div>
     </div>
