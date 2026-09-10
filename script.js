@@ -1,30 +1,50 @@
 let cart = [];
-let hoverTimer = null;
 
-// Seleciona todos os botões que precisam da lógica de 3 segundos
+// Tolerância anti-tremores (Grace Period)
+const TREMOR_GRACE_PERIOD = 400; // 400ms de tolerância caso o mouse dê pequenas escapadas
+
 const hoverButtons = document.querySelectorAll('.hover-btn');
 
 hoverButtons.forEach(btn => {
-    // Quando o mouse ENTRA no botão
+    let hoverTimer = null;
+    let graceTimer = null;
+    let isFilling = false;
+
     btn.addEventListener('mouseenter', () => {
-        // Adiciona a classe que inicia a animação do CSS (3 segundos)
+        // Se o mouse deu uma escapada rápida por tremor e voltou, cancela o resete
+        if (graceTimer) {
+            clearTimeout(graceTimer);
+            graceTimer = null;
+            return;
+        }
+
+        isFilling = true;
         btn.classList.add('filling');
-        
-        // Inicia o timer do JavaScript
+
+        // Timer de 3 segundos
         hoverTimer = setTimeout(() => {
-            btn.classList.remove('filling'); // Reseta a barra
-            executeAction(btn); // Executa a ação do botão
-        }, 3000); // 3000 ms = 3 segundos
+            btn.classList.remove('filling');
+            isFilling = false;
+            executeAction(btn);
+        }, 3000);
     });
 
-    // Quando o mouse SAI do botão antes dos 3 segundos
     btn.addEventListener('mouseleave', () => {
-        btn.classList.remove('filling'); // Cancela a animação
-        clearTimeout(hoverTimer); // Cancela a execução
+        if (!isFilling) return;
+
+        // Aguarda 400ms antes de resetar a animação caso seja apenas um tremor da mão
+        graceTimer = setTimeout(() => {
+            btn.classList.remove('filling');
+            if (hoverTimer) {
+                clearTimeout(hoverTimer);
+                hoverTimer = null;
+            }
+            isFilling = false;
+            graceTimer = null;
+        }, TREMOR_GRACE_PERIOD);
     });
 });
 
-// Função que direciona a lógica dependendo do botão
 function executeAction(btn) {
     const action = btn.getAttribute('data-action');
 
@@ -32,11 +52,11 @@ function executeAction(btn) {
         const name = btn.getAttribute('data-name');
         const price = parseFloat(btn.getAttribute('data-price'));
         cart.push({ name, price });
-        showToast(`${name} adicionado!`);
+        showToast(`✔ ${name} Adicionado!`);
     } 
     else if (action === 'next') {
         if (cart.length === 0) {
-            alert('Adicione pelo menos um item antes de avançar.');
+            alert('Adicione pelo menos um item ao carrinho antes de avançar.');
             return;
         }
         updateCartUI();
@@ -46,19 +66,16 @@ function executeAction(btn) {
         switchStage('stage-selection');
     } 
     else if (action === 'finish') {
-        alert('Pedido finalizado com sucesso! Preparando seu lanche...');
-        cart = []; // Limpa carrinho
-        switchStage('stage-selection'); // Volta para o início
+        cart = [];
+        switchStage('stage-selection');
     }
 }
 
-// Troca de abas (Telas)
 function switchStage(stageId) {
     document.querySelectorAll('.stage').forEach(el => el.classList.remove('active'));
     document.getElementById(stageId).classList.add('active');
 }
 
-// Atualiza a visualização do carrinho na aba de Confirmação
 function updateCartUI() {
     const list = document.getElementById('cart-items');
     const totalSpan = document.getElementById('total-value');
@@ -76,7 +93,6 @@ function updateCartUI() {
     totalSpan.innerText = total.toFixed(2).replace('.', ',');
 }
 
-// Mostra um aviso rápido na tela
 function showToast(msg) {
     const toast = document.getElementById('toast');
     toast.innerText = msg;
